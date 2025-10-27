@@ -14,6 +14,7 @@ def generate_raw_link(
     opacity: float = 1.0,
     blend: str = "default",
     output_json_path: str = ".",
+    bucket_path: str = "aind-open-data",
 ) -> None:
     """Creates an neuroglancer link to visualize
     raw tile placements of one color channel defined in the input xml.
@@ -26,6 +27,9 @@ def generate_raw_link(
         Path of s3 bucket where exaspim dataset is located.
     output_json_path: str
         Local path to write process_output.json file that nueroglancer reads.
+    bucket_path: str
+        S3 bucket name where the process_output.json will be uploaded.
+        Default is "aind-open-data".
 
     Returns
     ------------------------
@@ -105,7 +109,7 @@ def generate_raw_link(
     neuroglancer_link = NgState(
         input_config=input_config,
         mount_service="s3",
-        bucket_path="aind-open-data",
+        bucket_path=bucket_path,
         output_dir=output_json_path,
     )
     neuroglancer_link.save_state_as_json()

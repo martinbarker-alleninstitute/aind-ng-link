@@ -17,6 +17,7 @@ def generate_exaspim_link(
     blend: Optional[str] = "default",
     output_json_path: Optional[str] = ".",
     dataset_name: Optional[str] = None,
+    bucket_path: Optional[str] = "aind-open-data",
 ) -> None:
     """Creates a neuroglancer link to visualize
     registration transforms on exaspim dataset pre-fusion.
@@ -41,6 +42,10 @@ def generate_exaspim_link(
     dataset_name: Optional[str]
         Name of dataset. If None, will be directory name of
         output_json_path.
+    bucket_path: Optional[str]
+        S3 bucket name where the process_output.json will be uploaded.
+        Default is "aind-open-data". Change this to your own bucket name
+        if you plan to upload the JSON to a different bucket.
 
     Returns
     ------------------------
@@ -112,7 +117,7 @@ def generate_exaspim_link(
     neuroglancer_link = NgState(
         input_config=input_config,
         mount_service="s3",
-        bucket_path="aind-open-data",
+        bucket_path=bucket_path,
         output_dir=output_json_path,
         dataset_name=dataset_name,
     )
